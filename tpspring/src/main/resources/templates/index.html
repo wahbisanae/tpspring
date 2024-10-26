@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des utilisateurs</title>
+  <style>
+    /* Style général */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Conteneur principal */
+    div {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    /* Titre */
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    /* En-tête du tableau */
+    thead th {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    /* Lignes du tableau */
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid #dee2e6;
+      font-size: 16px;
+    }
+
+    /* Lignes alternées */
+    tbody tr:nth-child(even) {
+      background-color: #f1f3f5;
+    }
+
+    /* Liens d'édition et de suppression */
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #0056b3;
+    }
+
+    /* Bouton pour ajouter un utilisateur */
+    p a {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    p a:hover {
+      background-color: #218838;
+    }
+
+    /* Style responsif pour petits écrans */
+    @media (max-width: 768px) {
+      div {
+        padding: 15px;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      td {
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+      }
+
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div th:switch="${users}">
+  <h2 th:case="null">No users yet!</h2>
+  <div th:case="*">
+    <h2>Users</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.name}" data-label="Name"></td>
+        <td th:text="${user.email}" data-label="Email"></td>
+        <td data-label="Edit"><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
+        <td data-label="Delete"><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <a href="/signup">Add a new user</a>
+  </p>
+</div>
+
+</body>
+</html>

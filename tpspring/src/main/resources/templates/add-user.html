@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajouter Utilisateur</title>
+  <style>
+    /* Style général */
+    body {
+      font-family: 'Helvetica', sans-serif;
+      background-color: #d1e7dd; /* Un vert pâle apaisant */
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Conteneur du formulaire */
+    form {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 30px;
+      background-color: #fff;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      border: 1px solid #ced4da;
+    }
+
+    /* Labels */
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 18px; /* Taille d'écriture légèrement augmentée */
+      color: #495057;
+    }
+
+    /* Champs de texte */
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      font-size: 17px; /* Taille d'écriture augmentée */
+      background-color: #f1f3f5;
+      transition: border-color 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus {
+      border-color: #495057;
+      outline: none;
+    }
+
+    /* Messages d'erreurs */
+    span {
+      color: #dc3545;
+      font-size: 15px; /* Augmenté légèrement pour la lisibilité */
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    /* Bouton de soumission */
+    input[type="submit"] {
+      width: 100%;
+      background-color: #0d6efd;
+      color: white;
+      padding: 14px 0; /* Plus de padding pour le confort */
+      border: none;
+      border-radius: 8px;
+      font-size: 18px; /* Taille d'écriture plus grande */
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #084298;
+      transform: scale(1.03);
+    }
+
+    /* Style responsif pour petits écrans */
+    @media (max-width: 768px) {
+      form {
+        padding: 20px;
+      }
+
+      input[type="submit"] {
+        padding: 12px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
+  <label for="name">Name</label>
+  <input type="text" th:field="*{name}" id="name" placeholder="Name">
+  <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+  <label for="email">Email</label>
+  <input type="text" th:field="*{email}" id="email" placeholder="Email">
+  <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+  <input type="submit" value="Add User">
+</form>
+
+</body>
+</html>
